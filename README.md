@@ -1,2 +1,2 @@
-# backup-com-2-tipos-de-armas
-trainer para postal 2 
+Trainer para jogo Postal 2 em C#
+(Precisa ser atualizado, funciona parcialmente)
