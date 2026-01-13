@@ -57,7 +57,7 @@ class MemoryEditor
         Thread ammoThread = new Thread(() => MonitorAmmo(processHandle, ammoAddress));
         ammoThread.Start();
 
-        // Entrada do usuário para habilitar/desabilitar munição infinita com NumLock
+     
         bool lastNumLockState = GetNumLockState();
         while (true)
         {
@@ -68,11 +68,9 @@ class MemoryEditor
                 Console.WriteLine(infiniteAmmoEnabled ? "Munição infinita habilitada." : "Munição infinita desabilitada.");
                 lastNumLockState = currentNumLockState;
             }
-            Thread.Sleep(100); // Intervalo de verificação do estado da tecla NumLock
+            Thread.Sleep(100); 
         }
 
-        // Fechamento do handle do processo
-        // CloseHandle(processHandle); // Este código nunca será alcançado, então podemos removê-lo ou movê-lo para dentro de uma condição de saída do loop.
     }
 
     static void MonitorAmmo(IntPtr processHandle, IntPtr ammoAddress)
@@ -153,8 +151,7 @@ class MemoryEditor
 
     public static void ScanForWeaponAddresses(IntPtr processHandle, IntPtr baseAddress)
     {
-        // Implementação de exemplo para escanear a memória em busca de endereços de armas
-        // Esta função deve ser adaptada para o jogo específico e os padrões de memória das armas
+   
         int scanRange = 0x1000; // Range de memória para escanear
         byte[] buffer = new byte[4];
 
@@ -164,11 +161,11 @@ class MemoryEditor
             if (ReadProcessMemory(processHandle, currentAddress, buffer, buffer.Length, out int bytesRead))
             {
                 int value = BitConverter.ToInt32(buffer, 0);
-                // Verifica se o valor lido corresponde a um padrão de munição de arma
-                if (value > 0 && value < 1000) // Exemplo de condição para identificar munição
+            
+                if (value > 0 && value < 1000)
                 {
                     Console.WriteLine($"Possible weapon ammo address found at: {currentAddress.ToString("X")} with value: {value}");
-                    // Adiciona munição infinita para o endereço encontrado
+                  
                     AddInfiniteAmmoForWeapon(processHandle, currentAddress, new int[] { });
                 }
             }
